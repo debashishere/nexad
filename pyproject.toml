@@ -1,0 +1,40 @@
+[build-system]
+requires = ["setuptools>=70", "wheel"]
+build-backend = "setuptools.backends.legacy:build"
+
+[project]
+name = "nexad"
+version = "0.1.0"
+requires-python = ">=3.12"
+dependencies = [
+    "fastmcp",
+    "fastapi",
+    "uvicorn[standard]",
+    "pydantic-settings",
+    "sqlalchemy[asyncio]",
+    "asyncpg",
+    "redis[hiredis]",
+    "google-ads",
+    "slack-sdk",
+    "cryptography",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest",
+    "pytest-asyncio",
+    "fakeredis",
+    "httpx",       # for FastAPI TestClient (async)
+]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["nexad*"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["nexad/tests"]
+markers = [
+    "integration: marks tests that require external services (docker, db). Deselect by default.",
+]
+addopts = "-m 'not integration'"

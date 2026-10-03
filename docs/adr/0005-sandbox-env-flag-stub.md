@@ -1,0 +1,3 @@
+# Sandbox Env-Flag Stub for Non-Linux Environments
+
+OpenShell requires Linux kernel primitives (Landlock LSM, eBPF) unavailable on macOS or Docker Desktop. Rather than blocking local development, a `NEXAD_SANDBOX_ENABLED` environment flag controls the sandbox boundary: when `false`, `sandbox/manager.py` returns a no-op `SandboxHandle` and agents execute directly — every other module (firewall, HITL, MCP tools, gateway) runs identically. When `true` (CI and production on ECS EC2 Amazon Linux 2023), the real OpenShell Gateway Daemon is used. This is not a test mock — it is a permanent feature flag for environment-specific kernel capability.

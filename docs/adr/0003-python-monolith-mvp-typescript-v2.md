@@ -1,0 +1,3 @@
+# Python-Only Monolith for MVP; Polyglot Split for V2
+
+NexAd MVP is implemented as a single Python 3.12 codebase: FastMCP serves the MCP endpoints, FastAPI handles the gateway auth layer and Slack HITL webhook callbacks, and the Google Ads adapter, Budget Firewall, and Audit Ledger all live in the same repo. The TypeScript/Node.js gateway and Next.js dashboard described in the HLD are deferred to V2 — they were primarily motivated by the Teams/Web HITL channels and the React approval dashboard, both of which are out of MVP scope. Eliminating the cross-language boundary removes one network hop, one CI pipeline, and one Docker service from the 7–10 day critical path.
